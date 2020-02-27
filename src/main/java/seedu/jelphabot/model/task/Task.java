@@ -50,6 +50,14 @@ public class Task {
     public Remark getRemark() {
         return remark;
     }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public DateTime getDateTime() {
+        return dateTime;
+    }
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.

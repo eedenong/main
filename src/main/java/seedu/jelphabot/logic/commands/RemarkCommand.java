@@ -1,12 +1,17 @@
 package seedu.jelphabot.logic.commands;
 
+import seedu.jelphabot.commons.core.Messages;
 import seedu.jelphabot.commons.core.index.Index;
 import seedu.jelphabot.logic.commands.exceptions.CommandException;
 import seedu.jelphabot.model.Model;
 import seedu.jelphabot.model.task.Remark;
+import seedu.jelphabot.model.task.Task;
+
+import java.util.List;
 
 import static seedu.jelphabot.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.jelphabot.logic.parser.CliSyntax.PREFIX_REMARK;
+import static seedu.jelphabot.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 /**
  * Changes the remark of an existing person in the address book.
@@ -24,6 +29,9 @@ public class RemarkCommand extends Command {
 
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Remark: %2$s";
 
+    public static final String MESSAGE_ADD_REMARK_SUCCESS = "Added remark to Person: %1$s";
+    public static final String MESSAGE_DELETE_REMARK_SUCCESS = "Removed remark from Person: %1$s";
+
     private final Index index;
     private final Remark remark;
 
@@ -36,8 +44,28 @@ public class RemarkCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        //return new CommandResult("Hello from remark");
-        throw new CommandException(String.format(MESSAGE_ARGUMENTS, index.getOneBased(), remark));
+        List<Task> lastShownList = model.getFilteredPersonList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        Task taskToEdit = lastShownList.get(index.getZeroBased());
+        Task editedTask = new Task(taskToEdit.getDescription(), taskToEdit.getStatus(), taskToEdit.getDateTime(), taskToEdit.getModuleCode(), remark, taskToEdit.getTags());
+
+        model.setPerson(taskToEdit, editedTask);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+        return new CommandResult(generateSuccessMessage(editedTask));
+    }
+
+    /**
+     * Generates a command execution success message based on whether the remark is added to or removed from
+     * {@code personToEdit}.
+     */
+    private String generateSuccessMessage(Task taskToEdit) {
+        String message = !remark.value.isEmpty() ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
+        return String.format(message, taskToEdit);
     }
 
     @Override

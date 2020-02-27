@@ -23,6 +23,7 @@ class JsonAdaptedTask {
     private final String moduleCode;
     private final String status;
     private final String dateTime;
+    private final String remark;
     private final List<JsonAdaptedTag> tagged = new ArrayList<>();
 
     /**
@@ -32,11 +33,12 @@ class JsonAdaptedTask {
     public JsonAdaptedTask(
             @JsonProperty("name") String name,
             @JsonProperty("email") String moduleCode,
-            @JsonProperty("tagged") List<JsonAdaptedTag> tagged
-    ) {
+            @JsonProperty("remark") String remark,
+            @JsonProperty("tagged") List<JsonAdaptedTag> tagged) {
         this.name = name;
         this.status = "";
         this.dateTime = "";
+        this.remark = remark;
         this.moduleCode = moduleCode;
         if (tagged != null) {
             this.tagged.addAll(tagged);
@@ -50,6 +52,7 @@ class JsonAdaptedTask {
         name = source.getDescription().fullDescription;
         this.status = "";
         this.dateTime = "";
+        remark = source.getRemark().value;
         moduleCode = source.getModuleCode().value;
         tagged.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)

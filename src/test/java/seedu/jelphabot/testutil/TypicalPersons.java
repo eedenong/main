@@ -16,9 +16,11 @@ public class TypicalPersons {
 
     public static final Task ALICE = new PersonBuilder().withName("Alice Pauline")
             .withEmail("alice@example.com")
+            .withRemark("Yeet")
             .withTags("friends").build();
     public static final Task BENSON = new PersonBuilder().withName("Benson Meier")
             .withEmail("johnd@example.com")
+            .withRemark("Pepehands")
             .withTags("owesMoney", "friends").build();
     public static final Task CARL = new PersonBuilder().withName("Carl Kurz")
             .withEmail("heinz@example.com").build();

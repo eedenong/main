@@ -83,8 +83,10 @@ class JsonAdaptedTask {
         }
         final ModuleCode modelModuleCode = new ModuleCode(moduleCode);
 
+        final Remark modelRemark = new Remark("");
+
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Task(modelDescription, new Status(), new DateTime(), modelModuleCode, modelTags);
+        return new Task(modelDescription, new Status(), new DateTime(), modelModuleCode, modelRemark, modelTags);
     }
 
 }

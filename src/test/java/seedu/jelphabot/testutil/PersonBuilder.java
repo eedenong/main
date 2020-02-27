@@ -17,15 +17,18 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_MODULE_CODE = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_REMARK = "kek";
 
     private Description description;
     private ModuleCode moduleCode;
+    private Remark remark;
     private Set<Tag> tags;
 
     public PersonBuilder() {
         description = new Description(DEFAULT_NAME);
         moduleCode = new ModuleCode(DEFAULT_MODULE_CODE);
         tags = new HashSet<>();
+        remark = new Remark(DEFAULT_REMARK);
     }
 
     /**
@@ -35,6 +38,7 @@ public class PersonBuilder {
         description = taskToCopy.getDescription();
         moduleCode = taskToCopy.getModuleCode();
         tags = new HashSet<>(taskToCopy.getTags());
+        remark = taskToCopy.getRemark();
     }
 
     /**
@@ -69,8 +73,13 @@ public class PersonBuilder {
         return this;
     }
 
+    public PersonBuilder withRemark(String remark) {
+        this.remark = new Remark(remark);
+        return this;
+    }
+
     public Task build() {
-        return new Task(description, new Status(), new DateTime(), moduleCode, tags);
+        return new Task(description, new Status(), new DateTime(), moduleCode, remark, tags);
     }
 
 }

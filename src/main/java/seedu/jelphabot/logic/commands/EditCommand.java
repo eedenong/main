@@ -84,9 +84,10 @@ public class EditCommand extends Command {
 
         Description updatedDescription = editPersonDescriptor.getDescription().orElse(taskToEdit.getDescription());
         ModuleCode updatedModuleCode = editPersonDescriptor.getModuleCode().orElse(taskToEdit.getModuleCode());
+        Remark updatedRemark = taskToEdit.getRemark();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(taskToEdit.getTags());
 
-        return new Task(updatedDescription, new Status(), new DateTime(), updatedModuleCode, updatedTags);
+        return new Task(updatedDescription, new Status(), new DateTime(), updatedModuleCode, updatedRemark, updatedTags);
     }
 
     @Override

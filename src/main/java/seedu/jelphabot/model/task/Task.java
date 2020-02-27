@@ -21,19 +21,20 @@ public class Task {
     // TODO properly define status and dateTime
     private final Status status;
     private final DateTime dateTime;
-
+    private final Remark remark;
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Description description, Status status, DateTime dateTime, ModuleCode moduleCode, Set<Tag> tags) {
+    public Task(Description description, Status status, DateTime dateTime, ModuleCode moduleCode, Remark remark, Set<Tag> tags) {
         requireAllNonNull(description, status, dateTime, moduleCode, tags);
         this.description = description;
         this.status = status;
         this.dateTime = dateTime;
         this.moduleCode = moduleCode;
+        this.remark = remark;
         this.tags.addAll(tags);
     }
 
@@ -46,7 +47,9 @@ public class Task {
         return moduleCode;
     }
 
-
+    public Remark getRemark() {
+        return remark;
+    }
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -101,6 +104,8 @@ public class Task {
         builder.append(getDescription())
                 .append(" ModuleCode: ")
                 .append(getModuleCode())
+                .append(" Remark ")
+                .append(getRemark())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

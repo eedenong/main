@@ -5,6 +5,7 @@ import seedu.jelphabot.logic.commands.exceptions.CommandException;
 import seedu.jelphabot.model.Model;
 
 import static seedu.jelphabot.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.jelphabot.logic.parser.CliSyntax.PREFIX_REMARK;
 
 /**
  * Changes the remark of an existing person in the address book.
@@ -16,11 +17,9 @@ public class RemarkCommand extends Command {
             + "by the index number used in the last person listing. "
             + "Existing remark will be overwritten by the input.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "r/ [REMARK]\n"
+            + PREFIX_REMARK + "r/ [REMARK]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + "r/ Likes to swim.";
-
-    public static final String MESSAGE_NOT_IMPLEMENTED_YET = "Remark command not implemented yet";
 
     public static final String MESSAGE_ARGUMENTS = "Index: %1$d, Remark: %2$s";
 
